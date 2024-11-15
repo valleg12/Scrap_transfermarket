@@ -62,12 +62,16 @@ import requests
 from bs4 import BeautifulSoup
 import time
 
+(requests pour récupérer les pages web/BeautifulSoup pour analyser le contenu HTML/pandas pour structurer et enregistrer les données)
+
 class YoungPlayerStatsScraper:
     def __init__(self):
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
         }
         self.base_url = 'https://www.transfermarkt.com'
+
+(Rôle : Configurer l’URL de base et les en-têtes HTTP pour éviter d’être bloqué par les serveurs de Transfermarkt/Explication :Les en-têtes (User-Agent) simulent un navigateur pour éviter d’être identifié comme un bot/Utilisation de la méthode self.base_url pour centraliser la gestion des URLs)
 
     def get_players_stats(self, base_url, total_pages=20):
         all_players_stats = []
@@ -98,6 +102,8 @@ class YoungPlayerStatsScraper:
             time.sleep(2)
         return all_players_stats
 
+(Rôle : Récupérer les statistiques des joueurs sur plusieurs pages/Explication du choix des outils :La boucle for itère sur les pages pour garantir que toutes les données sont récupérées/La méthode requests.get est utilisée pour envoyer une requête HTTP et récupérer le contenu des pages/La bibliothèque BeautifulSoup analyse le HTML et permet d’extraire les éléments ciblés comme les noms, positions et statistiques/Utilisation de time.sleep : Permet d’éviter que le serveur ne détecte le scraper comme un bot en espaçant les requêtes)
+
 # Exemple d'utilisation
 scraper = YoungPlayerStatsScraper()
 data = scraper.get_players_stats('https://www.transfermarkt.com/spieler-statistik/wertvollstespieler/marktwertetop?altersklasse=u21', total_pages=5)
@@ -109,7 +115,6 @@ print(f"Joueurs extraits : {len(data)}")
 ## **Structure des fichiers**
 - `young_players_stats.csv` : Contient les données structurées sur les jeunes joueurs.
 - `young_players_stats.json` : Une version JSON des mêmes données, pour intégration dans d'autres applications.
-- `app/` : Répertoire contenant le code pour l'interface web (en cours).
 
 ---
 
